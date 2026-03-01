@@ -2,9 +2,9 @@
 // For local testing, leave as localhost:3000
 const BACKEND_URL = window.location.hostname === 'localhost' 
   ? 'http://localhost:3000'
-  : 'https://ligand-chatbot.onrender.com'; // Update with your deployed Render URL after deployment
+  : 'https://ligand-eusr.onrender.com'; // Update with your deployed Render URL after deployment
 
-const socket = io(BACKEND_URL);
+const socket = io(BACKEND_URL, { reconnection: true });
 const messages = document.getElementById('messages');
 const text = document.getElementById('text');
 const send = document.getElementById('send');
