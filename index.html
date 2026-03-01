@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ligand Chatbot</title>
+    <style>
+      body { font-family: system-ui, Arial; max-width: 760px; margin: 2rem auto; }
+      #messages { border: 1px solid #ddd; padding: 1rem; min-height: 300px; }
+      .msg { margin-bottom: 0.75rem; }
+      .user { color: #064; }
+      .bot { color: #036; }
+      #input { display:flex; gap: 0.5rem; margin-top: 1rem; }
+      #input input { flex:1; padding: 0.5rem; }
+    </style>
+  </head>
+  <body>
+    <h1>Ligand Chatbot</h1>
+    <div id="messages"></div>
+    <div id="input">
+      <input id="text" placeholder="Type a message" />
+      <button id="send">Send</button>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>
