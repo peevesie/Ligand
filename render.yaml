@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ligand-chatbot
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: OPENAI_API_KEY
+        scope: build
+      - key: NODE_ENV
+        value: production
