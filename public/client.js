@@ -5,6 +5,12 @@ const BACKEND_URL = window.location.hostname === 'localhost'
   : 'https://ligand-eusr.onrender.com'; // Update with your deployed Render URL after deployment
 
 const socket = io(BACKEND_URL, { reconnection: true });
+console.log('Connecting to backend at:', BACKEND_URL);
+
+socket.on('connect', () => console.log('✓ Socket connected'));
+socket.on('disconnect', () => console.log('✗ Socket disconnected'));
+socket.on('connect_error', (err) => console.error('Connection error:', err));
+
 const messages = document.getElementById('messages');
 const text = document.getElementById('text');
 const send = document.getElementById('send');

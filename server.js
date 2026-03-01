@@ -15,7 +15,10 @@ const OPENAI_KEY = process.env.OPENAI_API_KEY;
 const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
 
 io.on('connection', (socket) => {
+  console.log('Client connected:', socket.id);
+  
   socket.on('user_message', async (payload) => {
+    console.log('Received message:', payload);
     const { text } = payload || {};
     io.to(socket.id).emit('bot_typing', true);
     try {
@@ -72,18 +75,21 @@ io.on('connection', (socket) => {
 
         if (q.includes('joke') || q.includes('jokes') || q.includes('tell me a joke')) {
           const joke = jokes[Math.floor(Math.random() * jokes.length)];
+          console.log('Sending joke response');
           io.to(socket.id).emit('bot_message', { text: joke });
           return;
         }
 
         for (const key of Object.keys(kb)) {
           if (q.includes(key)) {
+            console.log('Found KB entry for:', key);
             io.to(socket.id).emit('bot_message', { text: kb[key] });
             return;
           }
         }
 
         if (q.includes('hello') || q.includes('hi')) {
+          console.log('Sending hello response');
           io.to(socket.id).emit('bot_message', { text: "Hello! I'm a local test bot. How can I help?" });
           return;
         }
@@ -97,6 +103,7 @@ io.on('connection', (socket) => {
         }
 
         const reply = 'Sorry — I don\'t know that locally. Try "what is a ligand", "tell me a joke", or set an OpenAI API key for full answers.';
+        console.log('Sending fallback response');
         io.to(socket.id).emit('bot_message', { text: reply });
         return;
       }
@@ -128,4 +135,4 @@ io.on('connection', (socket) => {
 });
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => console.log(`\n=== Ligand Chatbot Server ===\nListening on port ${PORT}\n`));
